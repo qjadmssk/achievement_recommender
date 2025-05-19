@@ -1,75 +1,93 @@
-# 🎯 성취기준 추천기 (Achievement Standards Recommender)
+물론입니다. 아래 내용을 한 번에 복사해서 README.md 파일에 붙여 넣으시면 됩니다:
 
-초등학교 교육과정에 따라 수업 활동에 어울리는 성취기준을 인공지능으로 추천해주는 시스템입니다.  
-Streamlit을 기반으로 한 웹 앱으로, 학년과 교과를 선택하고 수업 활동을 입력하면 관련된 성취기준을 추출합니다.
+# 🎯 Achievement Standards Recommender
 
-## 🔧 주요 기능
-
-- ✅ 초등학교 성취기준 JSON 기반 자동 필터링
-- ✅ OpenAI 임베딩(text-embedding-3-small) 기반 의미 유사도 검색
-- ✅ 학년/교과 선택 후 **해당 범위 내에서만 임베딩** 수행
-- ✅ 최대 5개의 유사 성취기준 추천 + 유사도 점수 표시
-- ✅ 벡터 검색 라이브러리 Chroma 활용
-- ✅ `.env`로 API 키 안전 관리
+An AI-powered tool that recommends **K-6 national curriculum achievement standards** based on your input teaching activity.  
+Built with **Streamlit** and **OpenAI Embeddings**, this app allows you to quickly find the most relevant standards by **grade and subject**.
 
 ---
 
-## 📁 프로젝트 구조
+## 🔧 Features
+
+- Dropdown selection for **grade** and **subject**
+- Text input for classroom activities
+- Recommends matching achievement standards
+- Uses **LangChain** with **OpenAI Embeddings**
+- JSON-based structured data
+- Fast and accurate vector search with **Chroma**
+- Displays similarity scores (Euclidean distance)
+
+---
+
+## 📁 Project Structure
 
 achievement_recommender/
 │
-├── app.py                         # Streamlit 메인 코드
+├── app.py                      # Streamlit main script
 ├── data/
-│   └── achievement_standards.json # 성취기준 JSON 파일
-├── .env                           # OpenAI API 키 등 환경 변수 (미포함)
-├── requirements.txt              # 필요한 패키지 목록
-└── .gitignore                    # 업로드 제외 목록 (env/, pycache/, chroma_db 등)
+│   └── achievement_standards.json  # JSON-structured standards
+├── chroma_db/                 # Chroma vector database (auto-generated)
+├── env/                       # Python virtual environment (.gitignored)
+├── .gitignore
+└── requirements.txt
 
 ---
 
-## 🚀 실행 방법
+## ▶️ How to Run
 
-1. 이 저장소를 클론하세요.
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/qjadmssk/achievement_recommender.git
 cd achievement_recommender
 
-	2.	가상환경 설정 후 패키지 설치
+2. Create and Activate Virtual Environment
 
 python -m venv env
-source env/bin/activate      # Windows는 .\env\Scripts\activate
+source env/bin/activate  # (Windows: .\env\Scripts\activate)
+
+3. Install Dependencies
+
 pip install -r requirements.txt
 
-	3.	.env 파일 생성
+4. Add Your OpenAI API Key
 
-OPENAI_API_KEY=sk-...
+Create a .env file and add the following line:
 
-	4.	앱 실행
+OPENAI_API_KEY=your_openai_api_key
+
+5. Launch the App
 
 streamlit run main.py
 
 
 ⸻
 
-📌 데이터 설명
-	•	achievement_standards.json:
-학년 → 교과 → 성취기준 리스트로 구성된 구조.
-예시:
-
-{
-  "3~4학년": {
-    "국어": [
-      "글의 중심 생각을 파악한다.",
-      "적절한 어휘를 사용해 글을 쓴다."
-    ]
-  }
-}
-
+💡 Tech Stack
+	•	Python 3.10+
+	•	Streamlit – simple web UI
+	•	OpenAI Embeddings (text-embedding-3-small)
+	•	LangChain – vector-based document querying
+	•	Chroma – local persistent vector database
+	•	JSON – data management by grade and subject
 
 ⸻
 
-🤖 인공지능 원리
-	•	text-embedding-3-small 모델로 임베딩
-	•	Chroma에서 유클리드 거리를 기준으로 유사한 문장 검색
-	•	학년/교과를 필터링한 뒤 유사도 높은 성취기준 최대 5개 추출
+🧠 How Similarity Works
+	•	The user’s input activity is embedded using OpenAI’s model
+	•	Only achievement standards that match the selected grade and subject are embedded and queried
+	•	Results are returned based on Euclidean distance (L2 norm)
+	•	Duplicates are filtered, and up to 5 best matches are displayed
+
+⸻
+
+📌 Notes
+	•	env/ and chroma_db/ folders are excluded via .gitignore
+	•	GPT-powered keyword extraction for teaching activities will be added soon
+
+⸻
+
+📬 Contact
+
+Have questions or suggestions?
+Feel free to open an issue or submit a pull request!
