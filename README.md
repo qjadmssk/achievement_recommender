@@ -1,5 +1,3 @@
-물론입니다. 아래 내용을 한 번에 복사해서 README.md 파일에 붙여 넣으시면 됩니다:
-
 # 🎯 Achievement Standards Recommender
 
 An AI-powered tool that recommends **K-6 national curriculum achievement standards** based on your input teaching activity.  
