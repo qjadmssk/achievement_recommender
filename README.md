@@ -47,7 +47,7 @@ OPENAI_API_KEY=sk-...
 
 	4.	앱 실행
 
-streamlit run app.py
+streamlit run main.py
 
 
 ⸻
