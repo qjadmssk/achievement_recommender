@@ -37,7 +37,7 @@ st.markdown("**수업 활동을 입력하면, 관련된 성취기준을 추천�
 
 # 학년 및 교과 선택
 grade_options = ["1~2학년", "3~4학년", "5~6학년"]
-subject_options = ["국어", "수학", "사회", "과학", "슬기생활", "도덕", "체육", "음악", "미술", "실과"]
+subject_options = ["국어", "수학", "사회", "과학", "도덕", "체육", "음악", "미술", "실과"]
 
 selected_grade = st.selectbox("📘 학년 선택", grade_options)
 selected_subject = st.selectbox("📙 교과 선택", subject_options)
@@ -62,20 +62,21 @@ if st.button("🔍 성취기준 찾기"):
                 # ✅ 중복 제거 및 학년·교과 필터링 후 최대 5개 출력
                 unique_contents = set()
                 final_results = []
-                for doc, _ in results_with_scores:
+                for doc, score in results_with_scores:
                     content = doc.page_content.strip()
                     meta = doc.metadata
                     if meta.get("학년") == selected_grade and meta.get("교과") == selected_subject:
                         if content not in unique_contents:
                             unique_contents.add(content)
-                            final_results.append(content)
+                            final_results.append((content, score))  # 유사도 점수 포함
                     if len(final_results) == 5:
                         break
 
                 # 결과 출력
                 if final_results:
                     st.subheader("📌 추천 성취기준")
-                    for i, content in enumerate(final_results, 1):
+                    for i, (content, score) in enumerate(final_results, 1):
                         st.markdown(f"**{i}.** {content}")
+                        st.caption(f"🧠 유사도 점수: `{score:.3f}`")
                 else:
                     st.info("관련 성취기준을 찾을 수 없어요. 입력을 다시 시도해보세요.")
