@@ -3,4 +3,4 @@ env/
 __pycache__/
 chroma_db/
 *.pyc
-.DS_Store
+.DS_Storeㅌ
